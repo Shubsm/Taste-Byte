@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Edit <%= Recipie.name %></h1>
+        <div style="width: 30%; margin: 25px auto;">
+            <form action="/Recipies/<%= Recipie._id %>?_method=PUT" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="Recipie[name]" value="<%= Recipie.name %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="Recipie[price]" value="<%= Recipie.price %>" min="0.01" step="0.01">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="Recipie[image]" value="<%= Recipie.image %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="Recipie[description]" value="<%= Recipie.description %>">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/Recipies">Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
