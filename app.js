@@ -52,6 +52,6 @@ app.use("/Recipies", RecipieRoutes);
 app.use("/Recipies/:id/comments", commentRoutes);
 
 
-app.listen(12345, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("The Kitchen Server Has Started!");
 });
