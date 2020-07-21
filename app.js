@@ -16,10 +16,11 @@ var commentRoutes    = require("./routes/comments"),
     RecipieRoutes = require("./routes/Recipies"),
     indexRoutes      = require("./routes/index")
  
-var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
+//var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
+var url = process.env.DATABASEURL || "mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/<dbname>?retryWrites=true&w=majority";
 mongoose.connect(url);
 
-//mongodb+srv://shubham:IITdelhi100%@cluster0-sbkch.mongodb.net/test?retryWrites=true
+//mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/<dbname>?retryWrites=true&w=majority
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
