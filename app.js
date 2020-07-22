@@ -17,7 +17,7 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
  
 //var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
-var url = process.env.DATABASEURL || "mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/<dbname>?retryWrites=true&w=majority";
+var url = process.env.DATABASEURL || "mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/tasty?retryWrites=true&w=majority";
 mongoose.connect(url);
 
 //mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/<dbname>?retryWrites=true&w=majority
