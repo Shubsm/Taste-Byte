@@ -4,12 +4,14 @@
 var express = require("express");
 var router  = express.Router();
 var Recipie = require("../models/Recipie");
-var middleware = require("../middleware");
+let { checkRecipieOwnership, isLoggedIn, isPaid } = require("../middleware");
+router.use(isLoggedIn, isPaid);
 
 
 //INDEX - show all Recipies
 router.get("/", function(req, res){
     // Get all Recipies from DB
+    if (req.query.paid) res.locals.success = 'Payment succeeded, welcome to Taste-Byte!';
     Recipie.find({}, function(err, allRecipies){
        if(err){
            console.log(err);
@@ -20,7 +22,7 @@ router.get("/", function(req, res){
 });
 
 //CREATE - add new Recipie to DB
-router.post("/", middleware.isLoggedIn, function(req, res){
+router.post("/",  function(req, res){
     // get data from form and add to Recipies array
     var name = req.body.name;
     var price = req.body.price;
@@ -44,7 +46,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 });
 
 //NEW - show form to create new Recipie
-router.get("/new", middleware.isLoggedIn, function(req, res){
+router.get("/new",  function(req, res){
    res.render("Recipies/new"); 
 });
 
@@ -63,7 +65,7 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT RECIPIE ROUTE
-router.get("/:id/edit", middleware.checkRecipieOwnership, function(req, res){
+router.get("/:id/edit", checkRecipieOwnership, function(req, res){
     Recipie.findById(req.params.id, function(err, foundRecipie){
         if(err){
             res.render("/Recipies");
@@ -74,7 +76,7 @@ router.get("/:id/edit", middleware.checkRecipieOwnership, function(req, res){
 });
 
 // UPDATE RECIPIE ROUTE
-router.put("/:id",middleware.checkRecipieOwnership, function(req, res){
+router.put("/:id",checkRecipieOwnership, function(req, res){
     // find and update the correct Recipie
     Recipie.findByIdAndUpdate(req.params.id, req.body.Recipie, function(err, updatedRecipie){
        if(err){
@@ -87,7 +89,7 @@ router.put("/:id",middleware.checkRecipieOwnership, function(req, res){
 });
 
 // DESTROY RECIPIE ROUTE
-router.delete("/:id",middleware.checkRecipieOwnership, function(req, res){
+router.delete("/:id",checkRecipieOwnership, function(req, res){
    Recipie.findByIdAndRemove(req.params.id, function(err){
       if(err){
           res.redirect("/Recipies");

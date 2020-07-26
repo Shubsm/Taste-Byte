@@ -69,4 +69,9 @@ middlewareObj.isLoggedIn = function(req, res, next){
     res.redirect("/login");
 }
 
+middlewareObj.isPaid = function(req, res, next){
+    if (req.user.isPaid) return next();
+    req.flash("error", "Please pay registration fee before continuing");
+    res.redirect("/checkout");
+}
 module.exports = middlewareObj;

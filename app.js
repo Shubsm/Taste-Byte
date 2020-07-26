@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express     = require("express"),
     app         = express(),
     bodyParser  = require("body-parser"),
@@ -17,9 +19,12 @@ var commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
  console.log(process.env.DATABASEURL);
 //var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
-var url = process.env.DATABASEURL || "mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/Recipie?retryWrites=true&w=majority";
-mongoose.connect(url);
-
+var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp_v12";
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+app.use(express.json());
 //mongodb+srv://shubh:25061998@tastebyte.jkrbp.mongodb.net/<dbname>?retryWrites=true&w=majority
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -52,7 +57,9 @@ app.use("/Recipies", RecipieRoutes);
 app.use("/Recipies/:id/comments", commentRoutes);
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(12345, process.env.IP, function(){
    console.log("The Kitchen Server Has Started!");
 });
+
+
 //Taste-Byte
